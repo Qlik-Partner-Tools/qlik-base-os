@@ -1,0 +1,1 @@
+Place files here if you wish to connect a floppy disk during provisioning.

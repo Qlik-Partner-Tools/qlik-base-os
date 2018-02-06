@@ -1,0 +1,79 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ],
+      "guest_additions_mode": "{{ user `guest_additions_mode` }}",
+      "guest_os_type": "Windows2012_64",
+      "headless": true,
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "md5",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "12h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_timeout": "1h",
+      "post_shutdown_delay": "5m",
+      "floppy_files": [
+        "./answer_files/2016/Autounattend.xml",
+        "./scripts/disable-screensaver.ps1",
+        "./scripts/disable-winrm.ps1",
+        "./scripts/enable-winrm.ps1",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1",
+        "./scripts/oracle-cert.cer"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+      "scripts": [
+        "./scripts/vm-guest-tools.bat",
+        "./scripts/enable-rdp.bat",
+        "./scripts/chocolatey.bat",
+        "./scripts/chocopacks.bat"
+      ]
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "./scripts/debloat-windows.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+      "scripts": [
+        "./scripts/set-winrm-automatic.bat",
+        "./scripts/compile-dotnet-assemblies.bat",
+        "./scripts/uac-enable.bat",
+        "./scripts/compact.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": true,
+      "output": "Win2k16-{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows_2016.template"
+    }
+  ],
+  "variables": {
+    "iso_url": "./iso/en_windows_server_2016_x64_dvd_9718492.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "e02d2e482b0f3dab915435e9040c13b4",
+    "autounattend": "./answer_files/2016/Autounattend.xml"
+  }
+}
