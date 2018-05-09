@@ -42,7 +42,7 @@ Edit the file **win2k16.json** and browse to the variable section.
 - Change your checksum, you will need to get the checksum from the ISO image. Google is your friend, use MD5sum or something you like to get checksums.
 
 (Optional) You have a **Windows license** and want to use it for the base box.
-- Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for "<Product Key>" and uncomment the "<!--<Key>XXXX.  Remove <!-- and -->" from the line and add your Product key as it is provided by Microsoft.
+- Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for ```<Product Key>``` and uncomment the ```<!--<Key>XXXX.  Remove <!-- and -->``` from the line and add your Product key as it is provided by Microsoft.
 
 From command prompt (or hopefully PowerShell, bash) browse to the root folder of this project (where the win2k16.json file exists) and type:
 
