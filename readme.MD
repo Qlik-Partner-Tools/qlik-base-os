@@ -30,7 +30,7 @@ This JSON file is used by Packer to generate the box.
 The base code for this solution includes Chocolatey (https://chocolatey.org/), which is a fantastic package manager for Windows server,  if you’re in any way familiar with Linux think apt-get or yum.  Using Chocolatey you can install software quickly without needing to download the program first.  Add any software you want into the script /scripts/chocopacks.bat.  In the below image 7zip, notepad++, Chrome, Firefox and Java Run Time are being installed.  This allows these applications to be present on every Virtual Machine that will use this box. Use https://chocolately.org to find package names, or create a PowerShell script yourself to install any software.
 
 ## Windows License
-Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for <Product Key> and uncomment the <!--<Key>XXXX.  Remove <!-- and --> from the line and add your Product key as it is provided by Microsoft.
+Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for ```<Product Key>``` and uncomment the ```<!--<Key>XXXX.  Remove <!-- and --> ``` from the line and add your Product key as it is provided by Microsoft.
 	
 ## Basic Steps
 *Prerequistes: You have an Windows ISO file in the "iso" folder, read more [here](iso/README.md)*
