@@ -13,10 +13,17 @@ This box is fully updated (although this can be changed through the Autounattend
 
 ## Important files
 
-answer_files/2016	This folder contains the Windows Server Autounattend answer file.  This XML file is used by to automate the installation of Windows Server.
-iso	Put your Windows Server 2016 ISO file in this folder.
-scripts	This folder has a number of scripts that can be provisioned during the creation of the Box file.  You can either add new scripts or edit existing ones.  For example if you wanted a particular application installed this is where you would put the script.
-windows_2016.json	This JSON file is used by Packer to generate the box.
+**answer_files/2016**
+This folder contains the Windows Server Autounattend answer file.  This XML file is used by to automate the installation of Windows Server.
+
+**iso**	
+Put your Windows Server 2016 ISO file in this folder.
+
+**scripts**	
+This folder has a number of scripts that can be provisioned during the creation of the Box file.  You can either add new scripts or edit existing ones.  For example if you wanted a particular application installed this is where you would put the script.
+
+**windows_2016.json**
+This JSON file is used by Packer to generate the box.
 
 ## Chocolatey Package Manager
 
@@ -35,7 +42,7 @@ Edit the file **win2k16.json** and browse to the variable section.
 - Change your checksum, you will need to get the checksum from the ISO image. Google is your friend, use MD5sum or something you like to get checksums.
 
 (Optional) You have a **Windows license** and want to use it for the base box.
-- Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for <Product Key> and uncomment the <!--<Key>XXXX.  Remove <!-- and --> from the line and add your Product key as it is provided by Microsoft.
+- Add your Windows License to the provisioning by editing the file */answer_files/2016/Autounattend.xml*.  Search for "<Product Key>" and uncomment the "<!--<Key>XXXX.  Remove <!-- and -->" from the line and add your Product key as it is provided by Microsoft.
 
 From command prompt (or hopefully PowerShell, bash) browse to the root folder of this project (where the win2k16.json file exists) and type:
 
