@@ -31,7 +31,15 @@ Open the file win2k16.json and browse to the variable section.
 You need to change the ISO_URL to be the correct path and file name, I store it in the ISO folder above, so you can too!
 Change your checksum, you will need to get the checksum from the ISO image. Google is your friend, use MD5sum or something you like to get checksums.
 
-From command prompt (or hopefully PowerShell, bash) browse to the packer folder.
+From command prompt (or hopefully PowerShell, bash) browse to the folder of this project (where the win2k16.json file exists) and type:
 
-Type packer build Win2k16.json sit back and wait, or do some other work.. This will take HOURS.
-The output of this will be the file Win2k16-virtualbox.box
+```
+	packer build Win2k16.json
+```
+
+sit back and wait, or do some other work.. This will take HOURS.
+The output of this will be the file **Win2k16-virtualbox.box** that is your actual base box you can now add into Vagrant to be the base box for your virtual machines.
+
+```
+	vagrant box add --name qlik/win2k16 Win2k16-virtualbox.box
+``` 
