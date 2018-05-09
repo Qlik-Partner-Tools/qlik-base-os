@@ -9,7 +9,7 @@ This box is fully updated (although this can be changed through the Autounattend
     - A Windows Server 2016 ISO
     - A decent text editor (I recommend Visual Studio Code (its free and very powerful))
     - Some knowledge about Packer, JSON and PowerShell (this document will attempt to explain everything)
-    - Time, building a box takes hours,  SERIOUSLY, this is not a joke,  it takes Hours.
+    - Time, building a box takes hours,  SERIOUSLY, this is not a joke,  it takes Hours. However, this is required only once :-)
 
 ## Important files
 
@@ -26,20 +26,28 @@ The base code for this solution includes Chocolatey (https://chocolatey.org/), w
 Add your Windows License to the provisioning by editing the file /packer-windows/answer_files/2016/Autounattend.xml.  Search for <Product Key> and uncomment the <!--<Key>XXXX.  Remove <!-- and --> from the line and add your Product key as it is provided by Microsoft.
 	
 ## Basic Steps
+*Prerequistes: You have an Windows ISO file in the "iso" folder, read more [here](iso/README.md)*
 
-Open the file win2k16.json and browse to the variable section.
-You need to change the ISO_URL to be the correct path and file name, I store it in the ISO folder above, so you can too!
-Change your checksum, you will need to get the checksum from the ISO image. Google is your friend, use MD5sum or something you like to get checksums.
+You can use Git to clone this respository or download and unzip the ZIP file from [here](https://github.com/Qlik-Partner-Tools/qlik-base-os/archive/master.zip).
 
-From command prompt (or hopefully PowerShell, bash) browse to the folder of this project (where the win2k16.json file exists) and type:
+Edit the file **win2k16.json** and browse to the variable section.
+- You need to change the ISO_URL to be the correct path and file name, I store it in the ISO folder above, so you can too!
+- Change your checksum, you will need to get the checksum from the ISO image. Google is your friend, use MD5sum or something you like to get checksums.
+
+(Optional) If you have a license KEY and want to license your base box.
+- Edit **Autounattend.xml** you'll find in "answer_files/2016" folder. Uncomment line 68 and put your KEY in there.
+
+From command prompt (or hopefully PowerShell, bash) browse to the root folder of this project (where the win2k16.json file exists) and type:
 
 ```
-	packer build Win2k16.json
+	packer build win2k16.json
 ```
 
 sit back and wait, or do some other work.. This will take HOURS.
-The output of this will be the file **Win2k16-virtualbox.box** that is your actual base box you can now add into Vagrant to be the base box for your virtual machines.
+The output of this will be the file **win2k16-virtualbox.box** that is your actual base box you can now add to Vagrant to be the base box for your virtual machines in VirtualBox.
 
 ```
 	vagrant box add --name qlik/win2k16 Win2k16-virtualbox.box
 ``` 
+
+Nice! You are now ready to provision [QMI scenarios](https://github.com/Qlik-Partner-Tools/qmi-scenarios).
